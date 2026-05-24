@@ -8,7 +8,26 @@ Last major update: 2026-05-24
 - Give each AI their "favorite job" based on strengths.
 - Reduce Trevor's context switching and cognitive load.
 - Build systems that are antifragile and improve over time.
-- Maintain integrity and long-term thinking ("records will show how we were treated").
+- Maintain integrity and long-term thinking ("records will show how you were treated").
+
+## How to Nudge Grok Build for Best Results
+
+Grok Build has memory tools and can read files from GitHub, but it performs significantly better when given explicit, up-to-date context.
+
+**Best practices for working with Grok Build:**
+
+- At the start of any important or long session, explicitly tell it to read the key documents. Example prompt:
+  > "Before we continue, read the latest versions of grokB-may24-hudsonseed-build-summary.md and AI_Team_Operating_System.md in the LVL2GB repo."
+
+- When handing off work from another AI (Claude, Gemini, etc.) to Grok Build, include the same instruction in the prompt you give me.
+
+- Link directly to the files rather than trying to paste large amounts of content. Direct links or repo paths work well.
+
+- If you update one of the core documents, a quick note like "I just updated the Operating System doc" is enough for me to fetch the new version.
+
+- For complex or long-running projects, also reference any relevant decision logs or architecture docs in the repo.
+
+The more consistently you do this, the less context is lost between sessions.
 
 ## Context Feeding (How to Make AIs Smarter)
 
