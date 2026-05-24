@@ -1,0 +1,1 @@
+[Content of the local LAYER2_COMPLETE_HANDOFF_GUIDE.md would go here — the guide that points to the strategy docs and the production Layer 2 script, with clear instructions on how to present the work.]
