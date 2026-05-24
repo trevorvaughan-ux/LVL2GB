@@ -1,82 +1,84 @@
-This is the beginning of Layer 2 of the HudsonSeed Pitching Machine.
+# LVL2GB — HudsonSeed Pitching Machine Layer 2 (Complete)
 
-This repo focuses on the "answer to all responses" part of the machine:
-- Seeing who has replied (clean visibility / actionable bar)
-- Tracking priority leads that are worth booking calls with
-- Logging responses without spamming people
-- Supporting long-term relationships (people who don't buy yet move into a community/nurture track instead of being pitched again)
+**Level 2 = The answer to every response.**
 
-## Philosophy (from Trevor)
+This repo is the dedicated, clean workspace for the inbound half of the machine:
 
-- Path of integrity: No desperate pitching.
-- People who engage but don't buy yet are still valuable (future buyers or champions).
-- Multiple parallel tracks are needed (sales outreach + value/nurture like "Friday Moment" emails).
-- Big money is at the district level (Superintendent + Board).
-- The machine must support both planned campaigns and random referrals over time.
-- "The more I put the dough in the machine, the pasta comes out."
+- See every reply in one place (Google Sheets — phone friendly)
+- Priority / actionable bar for hot leads worth a call
+- Zero-pressure Community track for anyone who engages
+- Value-touch logging (Friday Moment, breathing videos, Science of Calm, etc.)
+- Google Meet scheduling + Calendar integration
+- Low-pressure CTA snippets and materials logging
+- Safe, non-destructive sync from Supabase that **never** overwrites your manual Notes or extra columns
 
-## Current MVP Focus (Beta 1.1 – Jersey City)
+## Philosophy (non-negotiable)
 
-Start small and real:
-- 39 public schools + 10 private schools in Jersey City
-- Make response handling for this specific beta actually usable
-- Give Trevor a clean way to see replies and know what needs action
-- Build on top of existing Supabase data + Google Sheets comfort zone
+- Zero pressure. Ever.
+- Any engagement → Community (value/nurture track only from that moment).
+- Stay top of mind for 6–18 months with real value.
+- Small CTAs only. No spam, no pixels, no desperation.
+- The 49-school Jersey City Beta 1.1 is the live test bed right now.
 
-## Core Principles for This Layer
+## The Complete Production Drop (May 2026)
 
-- Data ultimately lives in Supabase (organized, contact-centric).
-- Trevor needs to actually *see* what is happening (Google Sheets as the primary readable layer + phone-friendly access later).
-- Minimize rotating keys, fragile auth, and maintenance burden.
-- Keep it stable — no crashes or chaos while running real outreach.
-- Support multiple parallel communication tracks without spamming.
+Everything you need to run the full low-pressure sequence on the current beta is here and reviewable:
 
-## Proposed MVP Components (Starting Small)
+**The One File You Actually Install:**
+`apps_script/Layer2_Response_Tracking_MVP.gs`
 
-1. **Response Tracking Sheet**  
-   A clean Google Sheet (or set of tabs) that shows:
-   - Who has replied
-   - Basic context (school, district, how they were contacted)
-   - Priority / Action Needed flag
-   - Notes / next step
-   - Link back to original email thread (when possible)
+- 100% self-contained Apps Script
+- Custom menu with every action you need daily
+- Hardened safe-merge sync (protects Notes + user columns)
+- Google Calendar Meet creation
+- Low-pressure CTA helper dialog
+- Extensive comments so Claude, Gemini, or future you can read it and "screw it in"
 
-2. **Supabase Sync (Light)**  
-   Simple Apps Script or lightweight process that can:
-   - Pull recent replies / new contacts from Supabase into the tracking sheet
-   - Push status changes (e.g. "Priority", "Call Booked", "Moved to Community") back to Supabase
+**Supporting Docs (ready to use):**
+- `beta_1.1_jersey_city/SETUP_LAYER2.md` — 5-minute setup guide
+- `beta_1.1_jersey_city/JC_Beta_1.1_Master_Sheet_Columns.md` — exact headers + why
+- `beta_1.1_jersey_city/JC_Beta_1.1_Final_Master_Template.csv` — importable starting sheet
+- `beta_1.1_jersey_city/TEST_FULL_SEQUENCE_CHECKLIST.md` — daily test flow for the real sequence
 
-3. **Basic Actionable Bar**  
-   A filtered view (in Sheets or a simple web view) that surfaces the highest-priority replies so Trevor can see what actually needs his attention today.
+**AI Team Docs:**
+- `AI_Team_Operating_System.md`
+- `grokB-may24-hudsonseed-build-summary.md` (North Star)
 
-4. **Community / Nurture Track Support**  
-   Ability to mark a contact as "Community" so they stop receiving direct sales pitches but can still receive value/nurture content (Friday Moment, etc.).
+## Quick Start (Jersey City Beta)
 
-## Out of Scope for First MVP
+1. Create sheet `JC_Beta_1.1_Master`
+2. Paste headers from the Columns doc (or import the CSV)
+3. Extensions → Apps Script → paste the entire `Layer2_Response_Tracking_MVP.gs`
+4. Add `SUPABASE_KEY` in Script Properties
+5. Save, refresh, use the 🌱 menu
 
-- Full autonomous reply drafting and sending
-- Complex multi-product purchase history tracking (future)
-- Heavy authentication systems
-- Beautiful custom dashboards (start with Sheets + simple views)
+See SETUP_LAYER2.md for the full 5-minute walkthrough.
 
-## Relationship to Existing Code
+## For Claude, Gemini, and Other AIs
 
-This repo is meant to work *with* the existing `hudsonseed-pitching-machine` repo.
+This is the "blow it out, all the script all the code" deliverable.
 
-**Main project repo:** https://github.com/trevorvaughan-ux/hudsonseed-pitching-machine
+- The entire working system is in one .gs file + the matching docs.
+- Fork the COL constants, the safe sync logic, the action functions — whatever you need.
+- When you improve it, open a PR or just paste the new version back into the file via the repo.
+- The goal is that any member of the AI team (or Trevor) can open the GS file and immediately understand and modify the machine.
 
-See the file `LAYER2.md` in the main repo for the direct connection.
+## Relationship to the Rest of the Machine
 
-Layer 1 (draft generation) lives in the main repo.
-Layer 2 (response handling + visibility) starts here.
+- Layer 1 (outbound draft generation) lives in the parent repo: https://github.com/trevorvaughan-ux/hudsonseed-pitching-machine
+- See `LAYER2.md` in that repo for the pointer back here.
+- Data source of truth: Supabase (contact-centric)
+- Human operating layer: Google Sheets (this is what Trevor actually lives in)
 
-We are deliberately starting with the real, live Beta 1.1 (Jersey City) rather than trying to solve the infinite-data problem on day one.
+## Status
 
-## How to Explore This Repo
+Production-ready MVP for the live Jersey City Beta 1.1.
+Ready for real replies, real calls, real value touches, and real testing of the zero-pressure long-cycle approach.
 
-- `docs/MVP_Sheet_Structure.md` → Recommended Google Sheet structure for tracking replies
-- `apps_script/` → Starter Apps Script examples
+Once this feels solid on 49 schools, the same pattern + script (with minor column tweaks) scales to the next 8 high-value districts.
 
-This repo exists as a concrete place to build against instead of just talking about it.
+---
 
-Let's build something real and useful for the current beta first.
+**Owner:** Trevor Vaughan  
+**Status:** Complete & live for the beta — iterate from here
+**Last blown-out update:** 2026-05-24
