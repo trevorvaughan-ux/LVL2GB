@@ -1,15 +1,15 @@
 /**
- * Layer 2 — Response Tracking (MVP + Antifragile) — Zero Pressure / Value First
+ * Layer 2 — Response Tracking (MVP + Antifragile) — Zero Pressure / Value-First Version
  *
- * Core Philosophy (Trevor's words):
+ * Philosophy (direct from you):
  * - If they open the email, they go into Community (whether they buy or not).
- * - Zero pressure sales.
- * - Just giving away value and growing momentum.
- * - Small CTA buttons only — no verbal pushing.
- * - Long-term thinking: they might decide in 6, 12, or 18 months when budget or a grant appears.
- * - Goal = stay top of mind in their sphere through consistent value.
+ * - Zero pressure sales. Ever.
+ * - Primary goal: give real value and stay top of mind over a long period (6–18 months).
+ * - Small, low-friction CTAs only — no verbal pushing.
+ * - People may buy later when budget, a grant, or a need appears.
+ * - The machine should support consistent value touches (Friday Moment, breathing videos, Science of Calm, etc.) so we remain in their sphere.
  *
- * This script supports that approach.
+ * This script + the matching sheet structure is built to support that approach for the current Jersey City Beta 1.1.
  */
 
 const SUPABASE_URL = 'https://pebhikfbpgntedvbxqph.supabase.co';
@@ -19,8 +19,9 @@ function onOpen() {
   ui.createMenu('🌱 HudsonSeed Machine (Layer 2)')
     .addItem('🔄 Sync Recent Replies from Supabase', 'syncRepliesToSheet')
     .addSeparator()
-    .addItem('🏛️ Move Selected to Community (Value Track)', 'moveSelectedToCommunity')
-    .addItem('🌱 Mark as Warm / Future Opportunity', 'markSelectedAsWarm')
+    .addItem('🏠 Move Selected to Community (Value Track)', 'moveSelectedToCommunity')
+    .addItem('💙 Mark as Warm / Future Opportunity', 'markSelectedAsWarm')
+    .addItem('📝 Log Value Touch (e.g. Friday Moment)', 'logValueTouch')
     .addToUi();
 }
 
@@ -29,7 +30,7 @@ function syncRepliesToSheet() {
   const key = PropertiesService.getScriptProperties().getProperty('SUPABASE_KEY');
 
   if (!key) {
-    SpreadsheetApp.getUi().alert('❌ SUPABASE_KEY missing in Script Properties.');
+    SpreadsheetApp.getUi().alert('❌ SUPABASE_KEY is missing in Script Properties.');
     return;
   }
 
@@ -116,7 +117,7 @@ function syncRepliesToSheet() {
     }
   });
 
-  SpreadsheetApp.getUi().alert(`✅ Sync complete. Added ${added} new replies. Updated ${updated} existing rows. Manual notes untouched.`);
+  SpreadsheetApp.getUi().alert(`✅ Sync complete. Added ${added} new. Updated ${updated} existing. Manual notes untouched.`);
 }
 
 function moveSelectedToCommunity() {
@@ -146,6 +147,26 @@ function markSelectedAsWarm() {
 
   for (let i = 1; i <= range.getNumRows(); i++) {
     sheet.getRange(range.getRow() + i - 1, statusCol).setValue('Warm / Future Opportunity');
+  }
+}
+
+function logValueTouch() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const range = sheet.getActiveRange();
+  const touchCol = findColumnByHeader(sheet, 'Last Value Touch');
+  const dateCol = findColumnByHeader(sheet, 'Last Value Touch Date');
+
+  if (!touchCol || !dateCol) {
+    SpreadsheetApp.getUi().alert('❌ Could not find columns "Last Value Touch" and "Last Value Touch Date" in row 1. Please add them.');
+    return;
+  }
+
+  const touch = prompt('What value touch are you logging? (e.g. Friday Moment, Breathing Video, Science of Calm deck)') || 'Value touch sent';
+  const today = new Date().toISOString().slice(0, 10);
+
+  for (let i = 1; i <= range.getNumRows(); i++) {
+    sheet.getRange(range.getRow() + i - 1, touchCol).setValue(touch);
+    sheet.getRange(range.getRow() + i - 1, dateCol).setValue(today);
   }
 }
 
