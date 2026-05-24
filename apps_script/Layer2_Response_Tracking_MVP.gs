@@ -1,17 +1,15 @@
 /**
- * Layer 2 — Response Tracking (MVP + Antifragile) — Zero Pressure Version
+ * Layer 2 — Response Tracking (MVP + Antifragile) — Zero Pressure / Value First
  *
- * Philosophy:
- * - Once someone engages (opens or replies), they move into Community / Nurture.
- * - No pressure selling. Focus on giving value and staying top of mind.
- * - Small CTAs only (never verbal pushing).
- * - Long-term relationship play: they might buy in 6, 12, or 18 months when budget/grant appears.
+ * Core Philosophy (Trevor's words):
+ * - If they open the email, they go into Community (whether they buy or not).
+ * - Zero pressure sales.
+ * - Just giving away value and growing momentum.
+ * - Small CTA buttons only — no verbal pushing.
+ * - Long-term thinking: they might decide in 6, 12, or 18 months when budget or a grant appears.
+ * - Goal = stay top of mind in their sphere through consistent value.
  *
- * Core goals for MVP:
- * - See who has replied or engaged
- * - Easily move people into Community status
- * - Track light value touches and next actions
- * - Protect manual notes and custom work in the sheet
+ * This script supports that approach.
  */
 
 const SUPABASE_URL = 'https://pebhikfbpgntedvbxqph.supabase.co';
@@ -21,8 +19,8 @@ function onOpen() {
   ui.createMenu('🌱 HudsonSeed Machine (Layer 2)')
     .addItem('🔄 Sync Recent Replies from Supabase', 'syncRepliesToSheet')
     .addSeparator()
-    .addItem('🏛️ Move Selected to Community (No Pressure)', 'moveSelectedToCommunity')
-    .addItem('🔥 Mark Selected as Warm / Future Opportunity', 'markSelectedAsWarm')
+    .addItem('🏛️ Move Selected to Community (Value Track)', 'moveSelectedToCommunity')
+    .addItem('🌱 Mark as Warm / Future Opportunity', 'markSelectedAsWarm')
     .addToUi();
 }
 
@@ -31,7 +29,7 @@ function syncRepliesToSheet() {
   const key = PropertiesService.getScriptProperties().getProperty('SUPABASE_KEY');
 
   if (!key) {
-    SpreadsheetApp.getUi().alert('❌ Error: SUPABASE_KEY is missing in Script Properties.');
+    SpreadsheetApp.getUi().alert('❌ SUPABASE_KEY missing in Script Properties.');
     return;
   }
 
@@ -64,7 +62,7 @@ function syncRepliesToSheet() {
   try {
     data = JSON.parse(response.getContentText());
   } catch (e) {
-    SpreadsheetApp.getUi().alert('Failed to parse response from Supabase.');
+    SpreadsheetApp.getUi().alert('Failed to parse Supabase response.');
     return;
   }
 
@@ -118,7 +116,7 @@ function syncRepliesToSheet() {
     }
   });
 
-  SpreadsheetApp.getUi().alert(`✅ Sync complete. Added ${added} new, updated ${updated} existing. All manual notes preserved.`);
+  SpreadsheetApp.getUi().alert(`✅ Sync complete. Added ${added} new replies. Updated ${updated} existing rows. Manual notes untouched.`);
 }
 
 function moveSelectedToCommunity() {
