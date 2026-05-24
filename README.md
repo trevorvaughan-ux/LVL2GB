@@ -62,17 +62,20 @@ Start small and real:
 ## Relationship to Existing Code
 
 This repo is meant to work *with* the existing `hudsonseed-pitching-machine` repo.
-Layer 1 (draft generation) lives there.
+
+**Main project repo:** https://github.com/trevorvaughan-ux/hudsonseed-pitching-machine
+
+See the file `LAYER2.md` in the main repo for the direct connection.
+
+Layer 1 (draft generation) lives in the main repo.
 Layer 2 (response handling + visibility) starts here.
 
 We are deliberately starting with the real, live Beta 1.1 (Jersey City) rather than trying to solve the infinite-data problem on day one.
 
-## Next Steps (Trevor's Call)
+## How to Explore This Repo
 
-When you're back and have energy, we can look at:
-- The actual current state of the Jersey City data in Supabase
-- What the highest-pain response handling problem is right now
-- Whether we start with a clean Sheet + light sync, or something else
+- `docs/MVP_Sheet_Structure.md` → Recommended Google Sheet structure for tracking replies
+- `apps_script/` → Starter Apps Script examples
 
 This repo exists as a concrete place to build against instead of just talking about it.
 
